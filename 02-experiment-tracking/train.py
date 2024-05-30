@@ -40,5 +40,12 @@ def run_train(data_path: str):
         rmse = mean_squared_error(y_val, y_pred, squared=False)
         mlflow.log_metric("rmse",rmse)
 
+        with open("models/rf.bin","wb") as f_out:
+            pickle.dump(rf, f_out)
+        
+        mlflow.log_artifact(local_path="models/rf.bin", artifact_path="artifacts")
+
+
+
 if __name__ == '__main__':
     run_train()
